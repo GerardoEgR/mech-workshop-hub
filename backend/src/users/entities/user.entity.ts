@@ -1,8 +1,7 @@
 
+import { Workshop } from 'src/workshop/entities/workshop.entity';
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Workshop } from '../../workshop/entities/workshop.entity';
-import { UserRole } from '../emuns/user-role.enum';
-
+import { UserRole } from '../enums/user-role.enum';
 
 @Entity('users')
 @Index(['workshopId', 'email'], { unique: true })
@@ -17,7 +16,7 @@ export class User {
   @JoinColumn({ name: 'workshopId' })
   workshop: Workshop;
 
-  @Column({ length: 150, unique: true })
+  @Column({ length: 150 })
   email: string;
 
   @Column({ select: false })

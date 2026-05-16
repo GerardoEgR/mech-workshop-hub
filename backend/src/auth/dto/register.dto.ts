@@ -1,6 +1,5 @@
 import { IsEmail, IsString, Length, Matches, MaxLength, MinLength } from "class-validator";
 
-
 export class RegisterDto {
 
   @IsString()

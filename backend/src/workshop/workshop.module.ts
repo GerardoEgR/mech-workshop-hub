@@ -5,9 +5,9 @@ import { WorkshopController } from './workshop.controller';
 import { WorkshopService } from './workshop.service';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Workshop])],
   controllers: [WorkshopController],
   providers: [WorkshopService],
-  imports: [TypeOrmModule.forFeature([Workshop])],
   exports: [WorkshopService],
 })
 export class WorkshopModule {}

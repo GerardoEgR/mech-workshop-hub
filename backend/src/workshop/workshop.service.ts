@@ -1,26 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { CreateWorkshopDto } from './dto/create-workshop.dto';
-import { UpdateWorkshopDto } from './dto/update-workshop.dto';
+import { Workshop } from './entities/workshop.entity';
 
 @Injectable()
 export class WorkshopService {
-  create(createWorkshopDto: CreateWorkshopDto) {
-    return 'This action adds a new workshop';
+
+  constructor(
+    @InjectRepository(Workshop)
+    private readonly workshopRepository: Repository<Workshop>,
+  ) {}
+
+  async create(createWorkshopDto: CreateWorkshopDto, manager?: EntityManager) {
+    const repo = manager
+      ? manager.getRepository(Workshop)
+      : this.workshopRepository;
+
+    const workshop = repo.create(createWorkshopDto);
+    return await repo.save(workshop);
   }
 
-  findAll() {
-    return `This action returns all workshop`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} workshop`;
-  }
-
-  update(id: number, updateWorkshopDto: UpdateWorkshopDto) {
-    return `This action updates a #${id} workshop`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} workshop`;
-  }
 }
